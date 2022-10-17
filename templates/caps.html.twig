@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <section>
+    <div class="row">
+      <h2>Capsules</h2>
+      <p>Toutes les capsules :</p>
+
+      <div class="row">
+        {% for cap in caps %}
+        <article class="col-md-3 col-sm-3 col-6 p-1 jc-card-cap-warpper">
+          <div class="card jc-card-cap p-2">
+            <img class="" src="{{ cap.getPicturePath() }}" alt="capsule">
+            <div>
+              <h4 class="text-center mt-2">{{ cap.name }}</h4>
+              <hr class="col-6 m-auto">
+              <ul class="p-0 mt-2">
+                <li><small>Producteur : {{ cap.getBrewery().name }}</small></li>
+                <li><small>N° Lambert : {{ cap.getNumLambert() }}</small></li>
+                <li><small>Côte de tirage : {{ cap.getCotation() }}</small></li>
+                <li><small>Ajouté le : {{ cap.getCreatedAt() | date }}</small></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

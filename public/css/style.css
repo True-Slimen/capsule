@@ -1,0 +1,22 @@
+ul {
+    list-style: none;
+}
+
+.jc-card-cap{
+    height: 272px;
+    overflow: hidden;
+    position: absolute;
+    transition: all 0.2s;
+}
+
+.jc-card-cap:hover{
+    height: fit-content;
+    transition: all 0.2s;
+    box-shadow: 0 3px 10px 0px rgba(0, 0, 0, 0.161);
+}
+
+.jc-card-cap-warpper{
+    position: relative;
+    height: 280px;
+}
+
