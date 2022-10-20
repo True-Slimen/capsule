@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Cap;
 use App\Repository\CapRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,7 +12,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class CapController extends Controller {
 
     /**
-     * @Route("/capsules", name="cap")
+     * @Route("/caps", name="cap")
      */
     public function caps(CapRepository $repo)
     {
@@ -25,7 +26,7 @@ class CapController extends Controller {
     /**
      * Permet d'afficher une seule capsule
      *
-     * @Route("/capsules/{name}/", name="cap_show")
+     * @Route("/caps/{name}/", name="cap_show")
      * 
      * @return Response
      */
@@ -35,6 +36,26 @@ class CapController extends Controller {
 
         return $this->render('cap.html.twig', [
             'cap' => $cap
+        ]);
+    }
+    
+    /**
+     * Créer une annon
+     * 
+     * @Route("/dashboard/", name="caps_create")
+     * 
+     * @return Response
+    */
+    public function create(){
+        $cap = new Cap();
+
+        $form = $this->createFormBuilder($cap)
+                    ->add('name')
+                    ->getForm();
+
+
+        return $this->render('dashboard/dashboard.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }
