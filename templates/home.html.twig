@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section>
+        <h1>Bienvenue</h1>
+        <p class="col-6 me-auto">Mettons en place une entité “Test” avec un champ “test” de type string (et toutes les valeurs par défaut proposés par le Maker Bundle de Symfony), créons la migration associée puis exécutons la migration. Rappel : les commandes sont exécutées dans le shell du conteneur “www”)</p>
+        <div class="row mt-5 col-8 mx-auto">
+            <h5>Les derniers ajouts :</h5>
+
+            {% for cap in caps %}
+              <article class="col-md-3 jc-card-cap-warpper col-sm-4 col-6 p-1">
+                <div class="card jc-card-cap p-2" style="z-index:{{ 10000 - loop.index }}">
+                  <img class="w-100 p-3" src="{{ asset('uploads/capsules/' ~ cap.getPicturePath() ) }}" alt="Pas d'image disponible">
+                  <div>
+                    <h4 class="text-center mt-2">{{ cap.name }}</h4>
+                    <hr class="col-6 m-auto">
+                    <ul class="p-0 mt-2">
+                      <li><small>Producteur : {{ cap.getBrewery() is same as(null) ? 'Aucun' : cap.getBrewery().name }}</small></li>
+                      <li><small>N° Lambert : {{ cap.getNumLambert() }}</small></li>
+                      <li><small>Côte de tirage : {{ cap.getCotation() }}</small></li>
+                      <li><small>Ajouté le : {{ cap.getCreatedAt() | date }}</small></li>
+                    </ul>
+                  </div>
+                </div>
+              </article>
+            {% endfor %}
+        </div>
+    </section>
+    <section>
+        <article>
+            <h3>Bienvenue</h3>
+            <p>Mettons en place une entité “Test” avec un champ “test” de type string (et toutes les valeurs par défaut proposés par le Maker Bundle de Symfony), créons la migration associée puis exécutons la migration.
+Rappel : les commandes sont exécutées dans le shell du conteneur “www”)</p>
+        </article>
+    </section>
+{% endblock %}
