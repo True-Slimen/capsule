@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\CapRepository;
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
+use DateTimeInterface;
 
 /**
  * @ORM\Entity(repositoryClass=CapRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Cap
 {
@@ -117,5 +120,15 @@ class Cap
         $this->brewery = $brewery;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtAutomatically(): void
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTimeImmutable());
+        }
     }
 }

@@ -22,15 +22,12 @@
     </section>
 
     {% block form_row %}
-        {{ dump() }}
         <div class="form-group">
             {{ form_label(form) }}
             {{ form_widget(form) }}
         </div>
     {% endblock %}
 
-    {% block text_widget %}
-        <input type="text" name="{{full_name}}" id="{{id}}" class="form-control">
-    {% endblock %}
+
 
 {% endblock %}
