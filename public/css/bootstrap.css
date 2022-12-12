@@ -11052,7 +11052,9 @@ table,
   background-color: #adb5bd;
 }
 .alert-success {
-  background-color: #495B6A;
+  background-color: var(--bs-alert-bg);
+  border: 1px solid var(--bs-alert-color);
+  color: var(--bs-alert-color);
 }
 .alert-info {
   background-color: #17a2b8;
@@ -11061,7 +11063,9 @@ table,
   background-color: #f0ad4e;
 }
 .alert-danger {
-  background-color: #d9534f;
+  background-color: var(--bs-alert-bg);
+  border: 1px solid var(--bs-alert-color);
+  color: var(--bs-alert-color);
 }
 .alert-light {
   background-color: #f8f9fa;

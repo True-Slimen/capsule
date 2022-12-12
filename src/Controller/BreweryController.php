@@ -26,6 +26,11 @@ class BreweryController extends Controller {
 
         return  $brewery;
     }
+
+    /**
+     * Créer une brasserie
+     * 
+     */
 }
 
 ?>
