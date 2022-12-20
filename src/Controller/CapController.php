@@ -46,7 +46,7 @@ class CapController extends AbstractController {
     }
     
     /**
-     * Créer une annon
+     * Créer une capsule
      * 
      * @Route("/dashboard/", name="caps_create")
      * 
@@ -62,7 +62,6 @@ class CapController extends AbstractController {
         
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $cap_picture */
-            $capPicture = 
 
            // Process picture name to bind it with the correct path in databse
            // Params =  (picturePath, cap name)
@@ -85,6 +84,8 @@ class CapController extends AbstractController {
                 "La capsule n'a pas pu être ajoutée."
             );
         }
+
+        
 
         return $this->render('dashboard/dashboard.html.twig', [
             'form' => $form->createView()

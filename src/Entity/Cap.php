@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(
  *  fields={"name", "cotation"},
- *  message="Une capsule de la même brasserie ayant la même cotation existe déjà."
+ *  message="Une capsule du même nom ayant la même cotation existe déjà."
  * )
  */
 class Cap

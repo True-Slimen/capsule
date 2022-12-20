@@ -3,6 +3,8 @@
 {% form_theme form _self %}
 
 {% block body %}
+    {{ include('layouts/dashboardNav.html.twig') }}
+
     <section>
         <div class="row">
             <h2>Dashboard</h2>
@@ -24,9 +26,10 @@
             </div>
 
             <div class="col-6 p-2">
-                <div class="border rounded-4 p-3">
+                {{ include('dashboard/form/brew.html.twig') }}
+                {# <div class="border rounded-4 p-3 bg-dark text-white">
                   <h6>Ajouter un producteur</h6>
-                </div>
+                </div> #}
             </div>
         </div>
         
