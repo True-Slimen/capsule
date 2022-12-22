@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block body %}
+    {{ include('layouts/dashboardNav.html.twig') }}
+
+    <section>
+        <div class="row">
+        LOOOOL
+            <h2>Dashboard</h2>
+        </div>
+        <div class="row">
+            <div class="col-6 p-2">
+                <div class="border rounded-4 p-3">
+                    <h6>Ajouter une capsule</h6>
+                    <p>Ajoutez des capsules depuis cet espace.</p>
+
+                    {{ form_start(form) }}
+
+                    {{ form_widget(form) }}
+                    
+                    {{ form_end(form) }}
+
+                    {{ form_errors(form) }}
+                </div>
+            </div>
+
+            <div class="col-6 p-2">
+                {{ include('dashboard/form/brew.html.twig') }}
+                {# <div class="border rounded-4 p-3 bg-dark text-white">
+                  <h6>Ajouter un producteur</h6>
+                </div> #}
+            </div>
+        </div>
+        
+    </section>
+
+    {% block form_row %}
+        <div class="form-group">
+            {{ form_label(form) }}
+            {{ form_widget(form) }}
+        </div>
+    {% endblock %}
+
+
+
+{% endblock %}

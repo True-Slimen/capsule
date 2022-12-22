@@ -1,0 +1,138 @@
+:root{
+    --primary-color: #495B6A
+}
+
+body{
+    position: relative;
+    min-height: 100vh;
+}
+
+footer{
+    bottom: 0;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 100%;
+}
+
+ul {
+    list-style: none;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    font: inherit;
+    color:  rgba(0, 0, 0, 0.175);;
+    width: 0.6em;
+    height: 0.6em;
+    border: 0.1em solid currentColor;
+    border-radius: 50px;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+  }
+
+
+  input[type="checkbox"]::before {
+    content: "";
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50px;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em  rgba(0, 0, 0, 0.175);;
+  }
+  
+  input[type="checkbox"]:checked::before {
+    transform: scale(1);
+  }
+.badge-danger{
+    display: none;
+}
+
+.cap-management-panel{
+    position: absolute;
+}
+
+.flash-container{
+    bottom: 0;
+    position: absolute;
+    right: 20px;
+    width: fit-content;
+    z-index: 10;
+}
+
+.flash-container > div{
+    width: fit-content;
+    animation: move_eye 1s forwards;
+}
+
+@-webkit-keyframes move_eye { from { opacity: 0; bottom: 0px; } to { opacity: 1; bottom: 60px; }  }
+        @keyframes move_eye { from { opacity: 0; bottom: 0px; } to { opacity: 1; bottom: 60px; }  }
+
+.footer-wrapper{
+    height: 110px;
+}
+
+.form-group label {
+    font-size: 14px;
+}
+
+.form-group input {
+    padding: 4px 8px;
+    font-size: 14px;
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: 0px 2px 10px 1px rgba(73, 91, 106, 0.2);
+    border-color: rgba(73, 91, 106, 0.4);
+}
+
+/* .jc-card-cap{
+    height: 272px;
+    overflow: hidden;
+    position: absolute;
+    transition: all 0.9s;
+} */
+
+.jc-card-cap-top{
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    height: 270px;
+    position: absolute;
+}
+
+.jc-card-cap-bottom{
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    height: 160px;
+    top: 118px;
+    position: absolute;
+    transition: all 0.6s;
+}
+
+.jc-card-cap-top:hover +  .jc-card-cap-bottom{
+    top: 270px;
+}
+
+.jc-card-cap-bottom-open {
+    top: 270px;
+}
+
+.jc-card-cap-warpper{
+    position: relative;
+    height: 280px;
+}
+
+li.active a{
+    border-bottom: 6px solid var(--primary-color);
+}
+
+.w-fc{
+    width: fit-content;
+}
