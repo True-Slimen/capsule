@@ -2,13 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\BreweryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BreweryRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=BreweryRepository::class)
+ * 
+ * @UniqueEntity(
+ *  fields={"name"},
+ *  message="Ce producteur existe déjà."
+ * )
  */
 class Brewery
 {

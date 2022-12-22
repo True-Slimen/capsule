@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Cap;
+use App\Form\BrewType;
 use App\Entity\Brewery;
 use App\Repository\CapRepository;
 use App\Repository\BreweryRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

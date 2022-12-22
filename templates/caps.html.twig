@@ -8,21 +8,37 @@
       <div class="row">
         {% for cap in caps %}
           <article class="col-md-2 jc-card-cap-warpper col-sm-4 col-6 p-1">
-            <div class="card jc-card-cap p-2" style="z-index:{{ 10000 - loop.index }}">
-              <img class="w-100 p-3" src="{{ asset('uploads/capsules/' ~ cap.getPicturePath() ) }}" alt="Pas d'image disponible">
-              <div>
+            <div class="card jc-card-cap jc-card-cap-top p-2" style="z-index:{{ 10001 - loop.index }}">
+                <div class="cap-management-panel">
+                  <input type="checkbox" name="activeCard" onclick="activeCard(value, checked)" value="{{loop.index}}">
+                </div>
+                <img class="w-100 p-3" src="{{ asset('uploads/capsules/' ~ cap.getPicturePath() ) }}" alt="Pas d'image disponible">
                 <h4 class="text-center mt-2">{{ cap.name }}</h4>
                 <hr class="col-6 m-auto">
+            </div>
+            <div class="card jc-card-cap jc-card-cap-bottom p-2" style="z-index:{{ 10000 - loop.index }}">
                 <ul class="p-0 mt-2">
                   <li><small>Producteur : {{ cap.getBrewery() is same as(null) ? 'Aucun' : cap.getBrewery().name }}</small></li>
                   <li><small>N° Lambert : {{ cap.getNumLambert() }}</small></li>
                   <li><small>Côte de tirage : {{ cap.getCotation() }}</small></li>
                   <li><small>Ajouté le : {{ cap.getCreatedAt() | date }}</small></li>
                 </ul>
-              </div>
             </div>
           </article>
         {% endfor %}
       </div>
   </section>
+
+  {% block javascripts %}
+    <script>
+      
+      let collectionCapsCard = document.querySelectorAll("div.jc-card-cap-bottom");
+
+      function activeCard(index, checked) {
+          collectionCapsCard[index - 1].classList.toggle("jc-card-cap-bottom-open");
+      }
+
+    </script>
+  {% endblock %}
 {% endblock %}
+

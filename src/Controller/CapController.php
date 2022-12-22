@@ -46,54 +46,90 @@ class CapController extends AbstractController {
     }
     
     /**
-     * Créer une annon
+     * Créer une capsule
      * 
      * @Route("/dashboard/", name="caps_create")
      * 
      * @return Response
     */
+    // TODO migrer cette fonction dans dashboardController
     public function create(Request $request): Response
-    {
+    {   
         $cap = new Cap();
         $form = $this->createForm(CapType::class, $cap);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $cap_picture */
-            $capPicture = $form->get('picture_path')->getData();
+        if($request->request->get('cap') !== null){
+            $form->handleRequest($request);
 
-            if ($capPicture) {
-                $originalFilename = pathinfo($capPicture->getClientOriginalName(), PATHINFO_FILENAME);
-                var_dump($originalFilename);
+            //$errors = $form->getErrors();
+            
+            if ($form->isSubmitted() && $form->isValid()) {
+                /** @var UploadedFile $cap_picture */
 
-                $safeFilename = $form->get('name')->getData();
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$capPicture->guessExtension();
+            // Process picture name to bind it with the correct path in databse
+            // Params =  (picturePath, cap name)
+                $cap->setPicturePath($this->persistPicture($form->get('picture_path')->getData(), $form->get('name')->getData()));
 
-                // Move the file to the directory where cap are stored
-                try {
-                    $capPicture->move(
-                        $this->getParameter('capsules_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    var_dump($e->getMessage());
-                }
+                $cap= $form->getData();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($cap);
+                $entityManager->flush();
 
-                // updates the 'picture_path' property to store the PDF file name
-                // instead of its contents
-                $cap->setPicturePath($newFilename);
+                $this->addFlash(
+                    'success',
+                    "La capsule <strong>{$cap->getName()}</strong> numéro {$cap->getCotation()} a été ajouté."
+                );
+                
+
+            }else if($form->isSubmitted() && $form->isValid() == false){
+                $this->addFlash(
+                    'danger',
+                    "La capsule n'a pas pu être ajoutée."
+                );
             }
-
-            $cap= $form->getData();
+        }else if($request->request->get('name') !== null){
+            $brewery = new Brewery();
+            $name = $this->securityString($request->request->get('name'));
+            $brewery->setName($name);
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($cap);
+            $entityManager->persist($brewery);
             $entityManager->flush();
-            //return new Response('News cap successfuly');
         }
-
+        
+        
         return $this->render('dashboard/dashboard.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    private function securityString($str)
+    {
+        $str = trim($str);
+        $str = htmlspecialchars($str);
+        return $str;
+    }
+
+    private function persistPicture($capPicture, $safeFilename)
+    {
+        if ($capPicture) {
+            $originalFilename = pathinfo($capPicture->getClientOriginalName(), PATHINFO_FILENAME);
+
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$capPicture->guessExtension();
+
+            // Move the file to the directory where cap are stored
+            try {
+                $capPicture->move(
+                    $this->getParameter('capsules_directory'),
+                    $newFilename
+                );
+            } catch (FileException $e) {
+                var_dump($e->getMessage());
+            }
+
+            // updates the 'picture_path' property to store the caps file name
+            // instead of its contents
+            return $newFilename;
+        }
     }
 }
 

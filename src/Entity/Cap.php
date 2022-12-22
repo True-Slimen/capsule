@@ -7,9 +7,16 @@ use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 use DateTimeInterface;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass=CapRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(
+ *  fields={"name", "cotation"},
+ *  message="Une capsule du même nom ayant la même cotation existe déjà."
+ * )
  */
 class Cap
 {
@@ -31,12 +38,15 @@ class Cap
     private $picture_path;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer", length=255, nullable=true)
+     *
      */
     private $num_lambert;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * 
+     * @Assert\Positive(message="La cotation doit être un chiffre")
      */
     private $cotation;
 
