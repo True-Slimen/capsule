@@ -53,7 +53,6 @@ class CapController extends AbstractController {
      * 
      * @return Response
     */
-    // TODO migrer cette fonction dans dashboardController
     public function create(Request $request): Response
     {   
         $cap = new Cap();
