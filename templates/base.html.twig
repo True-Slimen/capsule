@@ -15,6 +15,8 @@
 
   <title>{% block title %}Accueil{% endblock %}</title>
 </head>
+  {% set currentPath = path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) %}
 <body>
    {{ include('layouts/nav.html.twig') }}
 

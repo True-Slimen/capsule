@@ -53,43 +53,59 @@ class CapController extends AbstractController {
      * @return Response
     */
     public function create(Request $request): Response
-    {
+    {   
         $cap = new Cap();
         $form = $this->createForm(CapType::class, $cap);
-        $form->handleRequest($request);
 
-        //$errors = $form->getErrors();
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $cap_picture */
+        if($request->request->get('cap') !== null){
+            $form->handleRequest($request);
 
-           // Process picture name to bind it with the correct path in databse
-           // Params =  (picturePath, cap name)
-            $cap->setPicturePath($this->persistPicture($form->get('picture_path')->getData(), $form->get('name')->getData()));
-
-            $cap= $form->getData();
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($cap);
-            $entityManager->flush();
-
-            $this->addFlash(
-                'success',
-                "La capsule <strong>{$cap->getName()}</strong> numéro {$cap->getCotation()} a été ajouté."
-            );
+            //$errors = $form->getErrors();
             
+            if ($form->isSubmitted() && $form->isValid()) {
+                /** @var UploadedFile $cap_picture */
 
-        }else if($form->isSubmitted() && $form->isValid() == false){
-            $this->addFlash(
-                'danger',
-                "La capsule n'a pas pu être ajoutée."
-            );
+            // Process picture name to bind it with the correct path in databse
+            // Params =  (picturePath, cap name)
+                $cap->setPicturePath($this->persistPicture($form->get('picture_path')->getData(), $form->get('name')->getData()));
+
+                $cap= $form->getData();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($cap);
+                $entityManager->flush();
+
+                $this->addFlash(
+                    'success',
+                    "La capsule <strong>{$cap->getName()}</strong> numéro {$cap->getCotation()} a été ajouté."
+                );
+                
+
+            }else if($form->isSubmitted() && $form->isValid() == false){
+                $this->addFlash(
+                    'danger',
+                    "La capsule n'a pas pu être ajoutée."
+                );
+            }
+        }else if($request->request->get('name') !== null){
+            $brewery = new Brewery();
+            $name = $this->securityString($request->request->get('name'));
+            $brewery->setName($name);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($brewery);
+            $entityManager->flush();
         }
-
         
-
+        
         return $this->render('dashboard/dashboard.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    private function securityString($str)
+    {
+        $str = trim($str);
+        $str = htmlspecialchars($str);
+        return $str;
     }
 
     private function persistPicture($capPicture, $safeFilename)

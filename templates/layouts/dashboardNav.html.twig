@@ -1,10 +1,11 @@
 <ul class="navbar-nav w-100">
-        <div class="mr-auto col-8 row border rounded-4 mx-auto mb-3">
-          <li class="w-auto nav-item">
-            <a class="nav-link" href="{{ path('dashboard')}}">Ajouter du contenu</a>
-          </li>
-          <li class="w-auto nav-item">
-            <a class="nav-link" href="{{ path('admin_profil')}}">Profil</a>
-          </li>
-        </div>  
-      </ul>
+  <div class="mr-auto row border rounded-4 mx-auto mb-3">
+
+    <li class="dashboard-nav-item w-auto nav-item {{ currentPath =='/dashboard/' ? 'bg-dark text-white left-rounded-4' :'' }}">
+      <a class="nav-link" href="{{ path('dashboard')}}">Ajouter du contenu</a>
+    </li>
+    <li class="dashboard-nav-item w-auto nav-item {{ currentPath =='/dashboard/profil' ? 'bg-dark text-white right-rounded-4' :'' }}">
+      <a class="nav-link" href="{{ path('admin_profil')}}">Profil</a>
+    </li>
+  </div>  
+</ul>
