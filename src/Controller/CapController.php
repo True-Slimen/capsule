@@ -39,8 +39,7 @@ class CapController extends AbstractController {
     public function show($name, CapRepository $repo)
     {
         $cap = $repo->findOneByName($name);
-        dump($cap);
-        
+
         return $this->render('cap.html.twig', [
             'cap' => $cap
         ]);
