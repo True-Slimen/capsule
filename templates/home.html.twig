@@ -29,4 +29,16 @@
             {% endfor %}
         </div>
     </section>
+
+    {% block javascripts %}
+      <script>
+        
+        let collectionCapsCard = document.querySelectorAll("div.jc-card-cap-bottom");
+
+        function activeCard(index, checked) {
+            collectionCapsCard[index - 1].classList.toggle("jc-card-cap-bottom-open");
+        }
+
+      </script>
+    {% endblock %}
 {% endblock %}
