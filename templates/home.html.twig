@@ -8,7 +8,7 @@
             <h5>Les derniers ajouts :</h5>
 
             {% for cap in caps %}
-              <article class="col-md-2 jc-card-cap-warpper col-sm-4 col-6 p-1">
+              <article class="col-md-3 jc-card-cap-warpper col-sm-4 col-6 p-1">
               <div class="card jc-card-cap jc-card-cap-top p-2" style="z-index:{{ 10001 - loop.index }}">
                   <div class="cap-management-panel">
                     <input type="checkbox" name="activeCard" onclick="activeCard(value, checked)" value="{{loop.index}}">
